@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 08:51:34 by jmaalouf          #+#    #+#             */
-/*   Updated: 2022/05/17 16:20:58 by jmaalouf         ###   ########.fr       */
+/*   Created: 2022/05/17 16:22:44 by jmaalouf          #+#    #+#             */
+/*   Updated: 2022/05/17 17:32:59 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-/*
-	- SICP: Structure and Interpretation of Computer Programs (Harold Abelson and Gerald J. Sussman)
-	- Elements of Artificial Intelligence: A Modern Approach (Peter Norvig)
-	- Goedel, Escher, Bach (Douglas R. Hofstadter) 
-*/
+#include "get_next_line_bonus.h"
 
 t_buffer	*buffer_setup()
 {
@@ -142,8 +137,6 @@ char	*get_next_line (int fd)
 	char			*ret;
 	static t_buffer	*b_ptr;
 
-	if (fd < 0 || fd >= 1024)
-		return (NULL);
 	if(b_ptr == NULL)
 		b_ptr = buffer_setup();
 	if(b_ptr == NULL)
@@ -166,3 +159,11 @@ char	*get_next_line (int fd)
 		return (NULL);
 	return (ret);
 }
+
+/*
+	For using get_next_line with multiple fds:
+		- I could make something like a fixed array like: int fd_array[1024];
+		- I want to save the values of index_read and index_write to correspond to their specific file descriptor.
+		- I can make a function that looks for the file descriptor, and if it doesn't find it we create a new entry for that file descriptor.
+	Also clean up your main. You can do it!
+*/
